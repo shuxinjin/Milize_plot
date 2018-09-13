@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Milize</title>
+    <script type="text/javascript" src="echarts-all-3.js"></script>
+    <script type="text/javascript" src="node.js"></script>
+  </head>
+  
+  
+  
+  
+  <body style="height: 100%; margin: 0">
+    
+
+      <div id="container"  style="height: 100%" onmousedown = "mousedown()"></div>
+
+    
+    
+    <script type="text/javascript">
+    
+
+    
+    
+    
+      var dom = document.getElementById("container");
+      var myChart = echarts.init(dom);
+
+     
+      var globalSeriesData = []; 
+ var seriesData = [
+ {'name': '業績', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '業績','idvalue': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 2, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '短期的な業績', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 3, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '収益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 4, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業容', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 5, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '好業績', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 6, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業績予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 7, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '決算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 8, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '視聴率', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 9, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '連結営業利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 10, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '会社の業績', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績','idvalue': 11, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '継続', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '継続','idvalue': 12, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '据え置く', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 13, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '据え置き', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 14, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '不変', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 15, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '変わら', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 16, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '維持する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 17, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '引き下げる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 18, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '引き上げる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 19, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '引き上げ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 20, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '変更', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '継続','idvalue': 21, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '従来', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '従来','idvalue': 22, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '前回', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 23, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 24, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '弊社', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 25, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '若干', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 26, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '目標株価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 27, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '修正', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 28, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '営業利益予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '従来','idvalue': 29, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '要因', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '要因','idvalue': 30, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '要素', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 31, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '主因', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 32, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '主要因', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 33, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '減益要因', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 34, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '主な要因', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 35, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '再リース', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 36, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '為替換算差額', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '要因','idvalue': 37, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '可能', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '可能','idvalue': 38, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '必然', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 39, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '即効', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 40, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '競争優位', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 41, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '利便', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 42, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '脂肪', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 43, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '蓋然性', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 44, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '確度', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 45, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '下振れの可能性', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '可能','idvalue': 46, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '想定', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '想定','idvalue': 47, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '予想して', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 48, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '計画', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 49, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '事前予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 50, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見込ん', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 51, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '想定する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 52, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見通し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 53, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '予想通り', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 54, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '前提', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '想定','idvalue': 55, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '改善', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '改善','idvalue': 56, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '改善する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 57, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '好転', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 58, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '悪化', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 59, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '回復', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 60, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '改善策', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 61, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '改善努力', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 62, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '低下', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 63, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '大幅に改善する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 64, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '向上', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 65, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '均衡水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '改善','idvalue': 66, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '影響', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '影響','idvalue': 67, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '悪影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 68, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '大きな影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 69, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業績への影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 70, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '影響は軽微', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 71, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '被害', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 72, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '好影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 73, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格変動の影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 74, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '影響は大きい', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 75, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '一時的な要因', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 76, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '間接的な影響', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '影響','idvalue': 77, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '投資評価', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '投資評価','idvalue': 78, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '投資判断', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 79, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '中立', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 80, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '評価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 81, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '現値', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 82, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '乖離率', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 83, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '強気', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 84, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '終値', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資評価','idvalue': 85, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '向け', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '向け','idvalue': 86, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '一般機械', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 87, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '薄型テレビ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 88, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '日系', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 89, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '軸受', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 90, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '顧客向け', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 91, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '北米', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 92, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '関連製品', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 93, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '数量ベースで', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 94, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '海外市場', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '向け','idvalue': 95, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '以降', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '以降','idvalue': 96, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '入り', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以降','idvalue': 97, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '月頃', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以降','idvalue': 98, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '拡大', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '拡大','idvalue': 99, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '拡大の', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 100, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '拡大する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 101, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '拡大傾向', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 102, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '収益拡大', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 103, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 104, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '安定成長', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 105, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '開拓', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 106, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '伸長', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '拡大','idvalue': 107, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '決算発表', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 108, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '本決算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 109, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '通期決算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 110, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '中間決算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 111, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '決算内容', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 112, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '実績', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 113, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上期', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 114, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '昭和電工', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 115, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '通期', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '決算','idvalue': 116, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '短期的な利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 117, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '有価証券利息配当金', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 118, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '利益の増加', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 119, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '国内事業の利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 120, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '損益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 121, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '高い利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 122, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '海外利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '利益','idvalue': 123, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '前期', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '前期','idvalue': 124, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '前年同期比', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前期','idvalue': 125, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '前年度', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前期','idvalue': 126, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '車両出荷台数', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前期','idvalue': 127, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '純利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前期','idvalue': 128, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '以下', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '以下','idvalue': 129, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '名下', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 130, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '午後', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 131, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '本日', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 132, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '出所', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 133, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '森精機製作所', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 134, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '東ソー', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 135, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '積水化学工業', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 136, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '三井化学', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '以下','idvalue': 137, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増益', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '増益','idvalue': 138, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '減益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 139, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '大幅増益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 140, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増収', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 141, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増収増益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 142, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '利益の増減', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 143, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '利益を押し上げる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 144, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増益を確保する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 145, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増益を維持する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 146, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増益見通し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増益','idvalue': 147, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '売上高', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '売上高','idvalue': 148, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '連結売上高', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 149, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '売上', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 150, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '営業利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 151, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '予想売上高', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 152, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '受注額', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 153, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '受注高', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '売上高','idvalue': 154, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '国内', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '国内','idvalue': 155, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '国内販売', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 156, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '国内需要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 157, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '米州', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 158, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '主力', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 159, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '海外', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 160, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '中国', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 161, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '欧米', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 162, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '米国', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 163, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '加工食品', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '国内','idvalue': 164, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '評価できる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 165, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '評価する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 166, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '魅力', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 167, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価評価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 168, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '推奨', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 169, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '再評価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 170, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株主重視の経営', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 171, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '優先順位', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '評価','idvalue': 172, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販売', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '販売','idvalue': 173, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '出荷', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 174, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販売台数', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 175, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '自動車販売', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 176, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販売の増加', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 177, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '小売販売', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 178, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '末期', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 179, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販売数量', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 180, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '新型', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '販売','idvalue': 181, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '利益予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 182, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '収益予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 183, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業績見通し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 184, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業績予想を修正する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 185, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '中期予想', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 186, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '業績予想を下方修正する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '業績予想','idvalue': 187, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '発表', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '発表','idvalue': 188, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '公表', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 189, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '公表される', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 190, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '説明会', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 191, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '公表する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 192, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '正午', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 193, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '発表日', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 194, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '概要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 195, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '開催', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 196, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '決算を発表する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '発表','idvalue': 197, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増加', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '増加','idvalue': 198, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '減少', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 199, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増加する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 200, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '減少する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 201, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増え', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 202, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '抑制', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 203, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '増える', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 204, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '減少傾向にある', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 205, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '伸び悩み', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 206, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '微減', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '増加','idvalue': 207, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '投資', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '投資','idvalue': 208, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '新規投資', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 209, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '戦略投資', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 210, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '値する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 211, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株主重視の姿勢', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 212, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '企業の投資', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 213, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '不動産投資', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 214, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '税率の低下', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 215, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '分科会', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '投資','idvalue': 216, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '価格','idvalue': 217, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '販売価格', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 218, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格が上昇する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 219, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '調達価格', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 220, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 221, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '契約価格', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 222, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '出荷価格', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 223, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格の上昇', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 224, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '市況', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 225, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格の低下', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 226, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格の下落', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '価格','idvalue': 227, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '株価','idvalue': 228, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '株価水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 229, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価下落', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 230, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '現在の株価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 231, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '直近の株価', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 232, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株式市場', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 233, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価上昇', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 234, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '銀行株', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 235, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価の下落', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 236, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価の上昇', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 237, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '商品市況', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '株価','idvalue': 238, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '程度', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '程度','idvalue': 239, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '前後', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 240, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '近く', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 241, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '仮定', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 242, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '達する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 243, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '満た', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 244, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '換算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 245, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '程度','idvalue': 246, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '大きな変更', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 247, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見直し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 248, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '据え置い', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 249, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '引き下げ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 250, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '改め', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 251, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '微調整', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '変更','idvalue': 252, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '需要', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '需要','idvalue': 253, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '引き合い', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 254, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '最終需要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 255, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '需要の伸び', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 256, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '需要増', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 257, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '市場の需要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 258, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '旺盛な需要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 259, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '製品に対する需要', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 260, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '需要の増加', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 261, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '引合い', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '需要','idvalue': 262, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '算出', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '算出','idvalue': 263, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '算定', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 264, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '計算', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 265, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '設定', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 266, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '算出時', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 267, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '最も低いレベル', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 268, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '東証1部', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 269, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '割引い', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 270, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '算出基準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '算出','idvalue': 271, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '効果', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '効果','idvalue': 272, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '成果', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 273, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '構造改革の成果', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 274, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '寄与', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 275, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '円安メリット', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 276, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '効果を相殺する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 277, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '相乗効果', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 278, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '数量効果', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 279, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '限界利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 280, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '販促費用', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 281, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '一時費用', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '効果','idvalue': 282, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '収益水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 283, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '高い水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 284, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '低水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 285, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '株価キャッシュフロー倍率', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 286, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '価格水準', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 287, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '果たせ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 288, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '対比', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '水準','idvalue': 289, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '期待', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '期待','idvalue': 290, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '期待される', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 291, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見込めよ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 292, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '待た', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 293, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見込める', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 294, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '期待が高まる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 295, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '待ち', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 296, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '期待できない', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 297, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '見込まれる', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 298, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長期待', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 299, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '期待値', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '期待','idvalue': 300, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上方修正', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '修正','idvalue': 301, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '修正する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '修正','idvalue': 302, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '下方修正', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '修正','idvalue': 303, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '下方修正する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '修正','idvalue': 304, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長トレンド', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 305, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長力', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 306, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長を続ける', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 307, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '高い成長', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 308, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長性', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 309, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長軌道', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 310, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '成長見通し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 311, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '事業の成長', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '成長','idvalue': 312, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '同額', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前提','idvalue': 313, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '実勢', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前提','idvalue': 314, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '為替レート', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前提','idvalue': 315, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '換算レート', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前提','idvalue': 316, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '平均レート', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '前提','idvalue': 317, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上昇', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '上昇','idvalue': 318, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '下落', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 319, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上昇傾向', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 320, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上昇傾向にある', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 321, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '高騰', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 322, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上昇する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 323, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '上昇基調', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 324, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '下落した', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 325, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '反発', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 326, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '下落基調', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '上昇','idvalue': 327, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '相対', 'x': 220, 'y': 1 , 'symbolSize':20, 'category': '相対','idvalue': 328, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ {'name': '対照', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 329, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '相対的な', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 330, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '全般', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 331, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '好意', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 332, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '基本', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 333, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '限定', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 334, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '懐疑', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 335, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '中長期', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 336, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '機動', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 337, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '遅効', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '相対','idvalue': 338, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '期初', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '通期','idvalue': 339, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '会社', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '通期','idvalue': 340, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '通期の売上高', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '通期','idvalue': 341, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '経常利益', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '通期','idvalue': 342, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '回復する', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 343, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '回復傾向', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 344, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '本格的な回復', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 345, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '底入れ', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 346, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '復調', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 347, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '回復の兆し', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 348, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '需要の回復', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 349, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '緩やかな回復', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 350, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+ {'name': '収益回復', 'x': 0, 'y': 0 , 'symbolSize':20, 'category': '回復','idvalue': 351, 'symbol': 'circle', 'draggable' : 'True','ignore' :1, 'flag' :1},
+
+ ];
+var seriesLinks = [
+{'source': '業績', 'target': '利益'},
+{'source': '業績', 'target': '短期的な業績'},
+{'source': '業績', 'target': '収益'},
+{'source': '業績', 'target': '業容'},
+{'source': '業績', 'target': '好業績'},
+{'source': '業績', 'target': '業績予想'},
+{'source': '業績', 'target': '決算'},
+{'source': '業績', 'target': '視聴率'},
+{'source': '業績', 'target': '連結営業利益'},
+{'source': '業績', 'target': '会社の業績'},
+{'source': '継続', 'target': '据え置く'},
+{'source': '継続', 'target': '据え置き'},
+{'source': '継続', 'target': '不変'},
+{'source': '継続', 'target': '変わら'},
+{'source': '継続', 'target': '維持する'},
+{'source': '継続', 'target': '引き下げる'},
+{'source': '継続', 'target': '引き上げる'},
+{'source': '継続', 'target': '引き上げ'},
+{'source': '継続', 'target': '変更'},
+{'source': '従来', 'target': '前回'},
+{'source': '従来', 'target': '予想'},
+{'source': '従来', 'target': '弊社'},
+{'source': '従来', 'target': '若干'},
+{'source': '従来', 'target': '目標株価'},
+{'source': '従来', 'target': '修正'},
+{'source': '従来', 'target': '営業利益予想'},
+{'source': '従来', 'target': '業績予想'},
+{'source': '要因', 'target': '要素'},
+{'source': '要因', 'target': '主因'},
+{'source': '要因', 'target': '主要因'},
+{'source': '要因', 'target': '減益要因'},
+{'source': '要因', 'target': '主な要因'},
+{'source': '要因', 'target': '再リース'},
+{'source': '要因', 'target': '為替換算差額'},
+{'source': '可能', 'target': '必然'},
+{'source': '可能', 'target': '即効'},
+{'source': '可能', 'target': '競争優位'},
+{'source': '可能', 'target': '利便'},
+{'source': '可能', 'target': '脂肪'},
+{'source': '可能', 'target': '蓋然性'},
+{'source': '可能', 'target': '確度'},
+{'source': '可能', 'target': '下振れの可能性'},
+{'source': '想定', 'target': '予想'},
+{'source': '想定', 'target': '予想して'},
+{'source': '想定', 'target': '計画'},
+{'source': '想定', 'target': '事前予想'},
+{'source': '想定', 'target': '見込ん'},
+{'source': '想定', 'target': '若干'},
+{'source': '想定', 'target': '想定する'},
+{'source': '想定', 'target': '見通し'},
+{'source': '想定', 'target': '予想通り'},
+{'source': '想定', 'target': '前提'},
+{'source': '改善', 'target': '改善する'},
+{'source': '改善', 'target': '好転'},
+{'source': '改善', 'target': '悪化'},
+{'source': '改善', 'target': '回復'},
+{'source': '改善', 'target': '改善策'},
+{'source': '改善', 'target': '改善努力'},
+{'source': '改善', 'target': '低下'},
+{'source': '改善', 'target': '大幅に改善する'},
+{'source': '改善', 'target': '向上'},
+{'source': '改善', 'target': '均衡水準'},
+{'source': '影響', 'target': '悪影響'},
+{'source': '影響', 'target': '大きな影響'},
+{'source': '影響', 'target': '業績への影響'},
+{'source': '影響', 'target': '影響は軽微'},
+{'source': '影響', 'target': '被害'},
+{'source': '影響', 'target': '好影響'},
+{'source': '影響', 'target': '価格変動の影響'},
+{'source': '影響', 'target': '影響は大きい'},
+{'source': '影響', 'target': '一時的な要因'},
+{'source': '影響', 'target': '間接的な影響'},
+{'source': '投資評価', 'target': '投資判断'},
+{'source': '投資評価', 'target': '中立'},
+{'source': '投資評価', 'target': '目標株価'},
+{'source': '投資評価', 'target': '評価'},
+{'source': '投資評価', 'target': '業績予想'},
+{'source': '投資評価', 'target': '現値'},
+{'source': '投資評価', 'target': '乖離率'},
+{'source': '投資評価', 'target': '強気'},
+{'source': '投資評価', 'target': '終値'},
+{'source': '向け', 'target': '一般機械'},
+{'source': '向け', 'target': '薄型テレビ'},
+{'source': '向け', 'target': '日系'},
+{'source': '向け', 'target': '軸受'},
+{'source': '向け', 'target': '顧客向け'},
+{'source': '向け', 'target': '北米'},
+{'source': '向け', 'target': '関連製品'},
+{'source': '向け', 'target': '数量ベースで'},
+{'source': '向け', 'target': '海外市場'},
+{'source': '以降', 'target': '入り'},
+{'source': '以降', 'target': '月頃'},
+{'source': '拡大', 'target': '拡大の'},
+{'source': '拡大', 'target': '拡大する'},
+{'source': '拡大', 'target': '拡大傾向'},
+{'source': '拡大', 'target': '収益拡大'},
+{'source': '拡大', 'target': '成長'},
+{'source': '拡大', 'target': '安定成長'},
+{'source': '拡大', 'target': '開拓'},
+{'source': '拡大', 'target': '回復'},
+{'source': '拡大', 'target': '伸長'},
+{'source': '決算', 'target': '決算発表'},
+{'source': '決算', 'target': '本決算'},
+{'source': '決算', 'target': '通期決算'},
+{'source': '決算', 'target': '中間決算'},
+{'source': '決算', 'target': '決算内容'},
+{'source': '決算', 'target': '実績'},
+{'source': '決算', 'target': '上期'},
+{'source': '決算', 'target': '昭和電工'},
+{'source': '決算', 'target': '通期'},
+{'source': '利益', 'target': '業績'},
+{'source': '利益', 'target': '収益'},
+{'source': '利益', 'target': '短期的な利益'},
+{'source': '利益', 'target': '有価証券利息配当金'},
+{'source': '利益', 'target': '利益の増加'},
+{'source': '利益', 'target': '国内事業の利益'},
+{'source': '利益', 'target': '損益'},
+{'source': '利益', 'target': '高い利益'},
+{'source': '利益', 'target': '連結営業利益'},
+{'source': '利益', 'target': '海外利益'},
+{'source': '前期', 'target': '前年同期比'},
+{'source': '前期', 'target': '前年度'},
+{'source': '前期', 'target': '従来'},
+{'source': '前期', 'target': '予想'},
+{'source': '前期', 'target': '車両出荷台数'},
+{'source': '前期', 'target': '前回'},
+{'source': '前期', 'target': '純利益'},
+{'source': '以下', 'target': '名下'},
+{'source': '以下', 'target': '午後'},
+{'source': '以下', 'target': '本日'},
+{'source': '以下', 'target': '出所'},
+{'source': '以下', 'target': '決算'},
+{'source': '以下', 'target': '森精機製作所'},
+{'source': '以下', 'target': '東ソー'},
+{'source': '以下', 'target': '積水化学工業'},
+{'source': '以下', 'target': '三井化学'},
+{'source': '増益', 'target': '減益'},
+{'source': '増益', 'target': '大幅増益'},
+{'source': '増益', 'target': '増収'},
+{'source': '増益', 'target': '増収増益'},
+{'source': '増益', 'target': '利益の増減'},
+{'source': '増益', 'target': '利益を押し上げる'},
+{'source': '増益', 'target': '増益を確保する'},
+{'source': '増益', 'target': '増益を維持する'},
+{'source': '増益', 'target': '増益見通し'},
+{'source': '売上高', 'target': '連結売上高'},
+{'source': '売上高', 'target': '売上'},
+{'source': '売上高', 'target': '営業利益'},
+{'source': '売上高', 'target': '予想売上高'},
+{'source': '売上高', 'target': '受注額'},
+{'source': '売上高', 'target': '受注高'},
+{'source': '国内', 'target': '国内販売'},
+{'source': '国内', 'target': '北米'},
+{'source': '国内', 'target': '国内需要'},
+{'source': '国内', 'target': '米州'},
+{'source': '国内', 'target': '主力'},
+{'source': '国内', 'target': '海外'},
+{'source': '国内', 'target': '中国'},
+{'source': '国内', 'target': '欧米'},
+{'source': '国内', 'target': '米国'},
+{'source': '国内', 'target': '加工食品'},
+{'source': '評価', 'target': '評価できる'},
+{'source': '評価', 'target': '評価する'},
+{'source': '評価', 'target': '投資評価'},
+{'source': '評価', 'target': '魅力'},
+{'source': '評価', 'target': '株価評価'},
+{'source': '評価', 'target': '推奨'},
+{'source': '評価', 'target': '再評価'},
+{'source': '評価', 'target': '株主重視の経営'},
+{'source': '評価', 'target': '優先順位'},
+{'source': '販売', 'target': '国内販売'},
+{'source': '販売', 'target': '出荷'},
+{'source': '販売', 'target': '販売台数'},
+{'source': '販売', 'target': '自動車販売'},
+{'source': '販売', 'target': '販売の増加'},
+{'source': '販売', 'target': '小売販売'},
+{'source': '販売', 'target': '末期'},
+{'source': '販売', 'target': '売上'},
+{'source': '販売', 'target': '販売数量'},
+{'source': '販売', 'target': '新型'},
+{'source': '業績予想', 'target': '利益予想'},
+{'source': '業績予想', 'target': '収益予想'},
+{'source': '業績予想', 'target': '営業利益予想'},
+{'source': '業績予想', 'target': '予想'},
+{'source': '業績予想', 'target': '業績見通し'},
+{'source': '業績予想', 'target': '業績予想を修正する'},
+{'source': '業績予想', 'target': '中期予想'},
+{'source': '業績予想', 'target': '業績予想を下方修正する'},
+{'source': '発表', 'target': '公表'},
+{'source': '発表', 'target': '公表される'},
+{'source': '発表', 'target': '午後'},
+{'source': '発表', 'target': '説明会'},
+{'source': '発表', 'target': '公表する'},
+{'source': '発表', 'target': '正午'},
+{'source': '発表', 'target': '発表日'},
+{'source': '発表', 'target': '概要'},
+{'source': '発表', 'target': '開催'},
+{'source': '発表', 'target': '決算を発表する'},
+{'source': '増加', 'target': '減少'},
+{'source': '増加', 'target': '増加する'},
+{'source': '増加', 'target': '減少する'},
+{'source': '増加', 'target': '増え'},
+{'source': '増加', 'target': '抑制'},
+{'source': '増加', 'target': '増える'},
+{'source': '増加', 'target': '減少傾向にある'},
+{'source': '増加', 'target': '伸び悩み'},
+{'source': '増加', 'target': '微減'},
+{'source': '投資', 'target': '新規投資'},
+{'source': '投資', 'target': '戦略投資'},
+{'source': '投資', 'target': '値する'},
+{'source': '投資', 'target': '株主重視の姿勢'},
+{'source': '投資', 'target': '企業の投資'},
+{'source': '投資', 'target': '不動産投資'},
+{'source': '投資', 'target': '税率の低下'},
+{'source': '投資', 'target': '分科会'},
+{'source': '投資', 'target': '投資評価'},
+{'source': '価格', 'target': '販売価格'},
+{'source': '価格', 'target': '価格が上昇する'},
+{'source': '価格', 'target': '調達価格'},
+{'source': '価格', 'target': '販価'},
+{'source': '価格', 'target': '契約価格'},
+{'source': '価格', 'target': '出荷価格'},
+{'source': '価格', 'target': '価格の上昇'},
+{'source': '価格', 'target': '市況'},
+{'source': '価格', 'target': '価格の低下'},
+{'source': '価格', 'target': '価格の下落'},
+{'source': '株価', 'target': '株価水準'},
+{'source': '株価', 'target': '株価下落'},
+{'source': '株価', 'target': '現在の株価'},
+{'source': '株価', 'target': '直近の株価'},
+{'source': '株価', 'target': '株式市場'},
+{'source': '株価', 'target': '株価上昇'},
+{'source': '株価', 'target': '銀行株'},
+{'source': '株価', 'target': '株価の下落'},
+{'source': '株価', 'target': '株価の上昇'},
+{'source': '株価', 'target': '商品市況'},
+{'source': '程度', 'target': '前後'},
+{'source': '程度', 'target': '近く'},
+{'source': '程度', 'target': '仮定'},
+{'source': '程度', 'target': '達する'},
+{'source': '程度', 'target': '満た'},
+{'source': '程度', 'target': '換算'},
+{'source': '程度', 'target': '水準'},
+{'source': '変更', 'target': '大きな変更'},
+{'source': '変更', 'target': '見直し'},
+{'source': '変更', 'target': '不変'},
+{'source': '変更', 'target': '据え置く'},
+{'source': '変更', 'target': '据え置い'},
+{'source': '変更', 'target': '修正'},
+{'source': '変更', 'target': '引き下げ'},
+{'source': '変更', 'target': '改め'},
+{'source': '変更', 'target': '引き上げ'},
+{'source': '変更', 'target': '微調整'},
+{'source': '需要', 'target': '国内需要'},
+{'source': '需要', 'target': '引き合い'},
+{'source': '需要', 'target': '最終需要'},
+{'source': '需要', 'target': '需要の伸び'},
+{'source': '需要', 'target': '需要増'},
+{'source': '需要', 'target': '市場の需要'},
+{'source': '需要', 'target': '旺盛な需要'},
+{'source': '需要', 'target': '製品に対する需要'},
+{'source': '需要', 'target': '需要の増加'},
+{'source': '需要', 'target': '引合い'},
+{'source': '算出', 'target': '算定'},
+{'source': '算出', 'target': '計算'},
+{'source': '算出', 'target': '設定'},
+{'source': '算出', 'target': '算出時'},
+{'source': '算出', 'target': '最も低いレベル'},
+{'source': '算出', 'target': '東証1部'},
+{'source': '算出', 'target': '割引い'},
+{'source': '算出', 'target': '算出基準'},
+{'source': '効果', 'target': '成果'},
+{'source': '効果', 'target': '構造改革の成果'},
+{'source': '効果', 'target': '寄与'},
+{'source': '効果', 'target': '円安メリット'},
+{'source': '効果', 'target': '効果を相殺する'},
+{'source': '効果', 'target': '相乗効果'},
+{'source': '効果', 'target': '数量効果'},
+{'source': '効果', 'target': '限界利益'},
+{'source': '効果', 'target': '販促費用'},
+{'source': '効果', 'target': '一時費用'},
+{'source': '水準', 'target': '収益水準'},
+{'source': '水準', 'target': '株価水準'},
+{'source': '水準', 'target': '高い水準'},
+{'source': '水準', 'target': '低水準'},
+{'source': '水準', 'target': '程度'},
+{'source': '水準', 'target': '株価キャッシュフロー倍率'},
+{'source': '水準', 'target': '価格水準'},
+{'source': '水準', 'target': '果たせ'},
+{'source': '水準', 'target': '対比'},
+{'source': '期待', 'target': '期待される'},
+{'source': '期待', 'target': '見込めよ'},
+{'source': '期待', 'target': '待た'},
+{'source': '期待', 'target': '見込める'},
+{'source': '期待', 'target': '期待が高まる'},
+{'source': '期待', 'target': '待ち'},
+{'source': '期待', 'target': '期待できない'},
+{'source': '期待', 'target': '見込まれる'},
+{'source': '期待', 'target': '成長期待'},
+{'source': '期待', 'target': '期待値'},
+{'source': '修正', 'target': '上方修正'},
+{'source': '修正', 'target': '修正する'},
+{'source': '修正', 'target': '下方修正'},
+{'source': '修正', 'target': '据え置き'},
+{'source': '修正', 'target': '据え置い'},
+{'source': '修正', 'target': '微調整'},
+{'source': '修正', 'target': '変更'},
+{'source': '修正', 'target': '見直し'},
+{'source': '修正', 'target': '下方修正する'},
+{'source': '成長', 'target': '安定成長'},
+{'source': '成長', 'target': '成長トレンド'},
+{'source': '成長', 'target': '成長力'},
+{'source': '成長', 'target': '成長を続ける'},
+{'source': '成長', 'target': '高い成長'},
+{'source': '成長', 'target': '成長性'},
+{'source': '成長', 'target': '成長期待'},
+{'source': '成長', 'target': '成長軌道'},
+{'source': '成長', 'target': '成長見通し'},
+{'source': '成長', 'target': '事業の成長'},
+{'source': '前提', 'target': '予想'},
+{'source': '前提', 'target': '見通し'},
+{'source': '前提', 'target': '同額'},
+{'source': '前提', 'target': '実勢'},
+{'source': '前提', 'target': '為替レート'},
+{'source': '前提', 'target': '換算レート'},
+{'source': '前提', 'target': '平均レート'},
+{'source': '前提', 'target': '従来'},
+{'source': '前提', 'target': '仮定'},
+{'source': '上昇', 'target': '下落'},
+{'source': '上昇', 'target': '上昇傾向'},
+{'source': '上昇', 'target': '低下'},
+{'source': '上昇', 'target': '上昇傾向にある'},
+{'source': '上昇', 'target': '高騰'},
+{'source': '上昇', 'target': '上昇する'},
+{'source': '上昇', 'target': '上昇基調'},
+{'source': '上昇', 'target': '下落した'},
+{'source': '上昇', 'target': '反発'},
+{'source': '上昇', 'target': '下落基調'},
+{'source': '相対', 'target': '対照'},
+{'source': '相対', 'target': '相対的な'},
+{'source': '相対', 'target': '全般'},
+{'source': '相対', 'target': '好意'},
+{'source': '相対', 'target': '基本'},
+{'source': '相対', 'target': '限定'},
+{'source': '相対', 'target': '懐疑'},
+{'source': '相対', 'target': '中長期'},
+{'source': '相対', 'target': '機動'},
+{'source': '相対', 'target': '遅効'},
+{'source': '通期', 'target': '期初'},
+{'source': '通期', 'target': '上期'},
+{'source': '通期', 'target': '会社'},
+{'source': '通期', 'target': '営業利益'},
+{'source': '通期', 'target': '通期の売上高'},
+{'source': '通期', 'target': '計画'},
+{'source': '通期', 'target': '経常利益'},
+{'source': '通期', 'target': '同額'},
+{'source': '通期', 'target': '連結営業利益'},
+{'source': '回復', 'target': '回復する'},
+{'source': '回復', 'target': '回復傾向'},
+{'source': '回復', 'target': '本格的な回復'},
+{'source': '回復', 'target': '底入れ'},
+{'source': '回復', 'target': '復調'},
+{'source': '回復', 'target': '改善'},
+{'source': '回復', 'target': '回復の兆し'},
+{'source': '回復', 'target': '需要の回復'},
+{'source': '回復', 'target': '緩やかな回復'},
+{'source': '回復', 'target': '収益回復'},
+
+ ];
+var seriesCategories = [
+{name: '若干'},
+{name: '受注高'},
+{name: '名下'},
+{name: '期待'},
+{name: '安定成長'},
+{name: '引き下げ'},
+{name: '増収'},
+{name: '海外'},
+{name: '下落基調'},
+{name: '改善'},
+{name: '損益'},
+{name: '営業利益予想'},
+{name: '大幅増益'},
+{name: '決算発表'},
+{name: '見込めよ'},
+{name: '米国'},
+{name: '継続'},
+{name: '均衡水準'},
+{name: '修正する'},
+{name: '改め'},
+{name: '市場の需要'},
+{name: '分科会'},
+{name: '効果を相殺する'},
+{name: '即効'},
+{name: '業容'},
+{name: '株主重視の姿勢'},
+{name: '減益'},
+{name: '果たせ'},
+{name: '売上高'},
+{name: '前回'},
+{name: '成長力'},
+{name: '魅力'},
+{name: '一時費用'},
+{name: '契約価格'},
+{name: '国内事業の利益'},
+{name: '確度'},
+{name: '維持する'},
+{name: '需要'},
+{name: '影響は軽微'},
+{name: '本日'},
+{name: '据え置く'},
+{name: '海外市場'},
+{name: '同額'},
+{name: '回復'},
+{name: '投資判断'},
+{name: '伸び悩み'},
+{name: '現値'},
+{name: '国内販売'},
+{name: '引き下げる'},
+{name: '引き上げる'},
+{name: '製品に対する需要'},
+{name: '海外利益'},
+{name: '前後'},
+{name: '株主重視の経営'},
+{name: '受注額'},
+{name: '計算'},
+{name: '売上'},
+{name: '増加'},
+{name: '引き上げ'},
+{name: '増益を維持する'},
+{name: '利益を押し上げる'},
+{name: '減益要因'},
+{name: '自動車販売'},
+{name: '微減'},
+{name: '換算'},
+{name: '成長見通し'},
+{name: '好転'},
+{name: '拡大傾向'},
+{name: '増益を確保する'},
+{name: '低水準'},
+{name: '期待値'},
+{name: '公表する'},
+{name: '算定'},
+{name: '回復する'},
+{name: '上昇'},
+{name: '販売数量'},
+{name: '販売価格'},
+{name: '脂肪'},
+{name: '要素'},
+{name: '商品市況'},
+{name: '旺盛な需要'},
+{name: '成長期待'},
+{name: '増え'},
+{name: '設定'},
+{name: '短期的な業績'},
+{name: '復調'},
+{name: '水準'},
+{name: '為替換算差額'},
+{name: '予想して'},
+{name: '業績予想'},
+{name: '微調整'},
+{name: '価格'},
+{name: '必然'},
+{name: '最終需要'},
+{name: '限界利益'},
+{name: '投資評価'},
+{name: '最も低いレベル'},
+{name: '期待できない'},
+{name: '待ち'},
+{name: '対照'},
+{name: '短期的な利益'},
+{name: '下方修正する'},
+{name: '成長性'},
+{name: '小売販売'},
+{name: '割引い'},
+{name: '増収増益'},
+{name: '概要'},
+{name: '下振れの可能性'},
+{name: '会社'},
+{name: '需要の回復'},
+{name: '不動産投資'},
+{name: '好影響'},
+{name: '要因'},
+{name: '入り'},
+{name: '加工食品'},
+{name: '本決算'},
+{name: '戦略投資'},
+{name: '改善努力'},
+{name: '遅効'},
+{name: '可能'},
+{name: '企業の投資'},
+{name: '達する'},
+{name: '円安メリット'},
+{name: '税率の低下'},
+{name: '中国'},
+{name: '据え置い'},
+{name: '通期'},
+{name: '下落した'},
+{name: '対比'},
+{name: '調達価格'},
+{name: '成長'},
+{name: '価格水準'},
+{name: '平均レート'},
+{name: '連結売上高'},
+{name: '株価水準'},
+{name: '相対'},
+{name: '数量効果'},
+{name: '伸長'},
+{name: '株価評価'},
+{name: '成長軌道'},
+{name: '下方修正'},
+{name: '競争優位'},
+{name: '需要の増加'},
+{name: '高い水準'},
+{name: '見込める'},
+{name: '主力'},
+{name: '通期決算'},
+{name: '変更'},
+{name: '成長トレンド'},
+{name: '以降'},
+{name: '出荷'},
+{name: '利益'},
+{name: '日系'},
+{name: '強気'},
+{name: '収益回復'},
+{name: '通期の売上高'},
+{name: '増える'},
+{name: '減少する'},
+{name: '想定する'},
+{name: '懐疑'},
+{name: '投資'},
+{name: '森精機製作所'},
+{name: '効果'},
+{name: '午後'},
+{name: '関連製品'},
+{name: '拡大'},
+{name: '不変'},
+{name: '東証1部'},
+{name: '公表'},
+{name: '大きな影響'},
+{name: '回復の兆し'},
+{name: '前年同期比'},
+{name: '向上'},
+{name: '機動'},
+{name: '顧客向け'},
+{name: '需要の伸び'},
+{name: '株価上昇'},
+{name: '見込まれる'},
+{name: '上昇基調'},
+{name: '以下'},
+{name: '乖離率'},
+{name: '決算'},
+{name: '出荷価格'},
+{name: '影響'},
+{name: '相対的な'},
+{name: '株価の上昇'},
+{name: '価格が上昇する'},
+{name: '被害'},
+{name: '正午'},
+{name: '増益見通し'},
+{name: '販売の増加'},
+{name: '値する'},
+{name: '直近の株価'},
+{name: '市況'},
+{name: '上昇傾向'},
+{name: '有価証券利息配当金'},
+{name: '構造改革の成果'},
+{name: '寄与'},
+{name: '積水化学工業'},
+{name: '利益の増加'},
+{name: '北米'},
+{name: '拡大する'},
+{name: '据え置き'},
+{name: '弊社'},
+{name: '悪化'},
+{name: '再リース'},
+{name: '緩やかな回復'},
+{name: '修正'},
+{name: '利便'},
+{name: '終値'},
+{name: '収益'},
+{name: '算出基準'},
+{name: '実績'},
+{name: '販売台数'},
+{name: '回復傾向'},
+{name: '収益水準'},
+{name: '低下'},
+{name: '事業の成長'},
+{name: '見通し'},
+{name: '公表される'},
+{name: '車両出荷台数'},
+{name: '大幅に改善する'},
+{name: '中間決算'},
+{name: '上昇傾向にある'},
+{name: '高騰'},
+{name: '利益予想'},
+{name: '収益拡大'},
+{name: '換算レート'},
+{name: '薄型テレビ'},
+{name: '純利益'},
+{name: '拡大の'},
+{name: '新規投資'},
+{name: '見込ん'},
+{name: '発表日'},
+{name: '視聴率'},
+{name: '見直し'},
+{name: '底入れ'},
+{name: '改善策'},
+{name: '為替レート'},
+{name: '高い利益'},
+{name: '増益'},
+{name: '従来'},
+{name: '抑制'},
+{name: '引き合い'},
+{name: '上昇する'},
+{name: '数量ベースで'},
+{name: '事前予想'},
+{name: '成長を続ける'},
+{name: '期待が高まる'},
+{name: '悪影響'},
+{name: '相乗効果'},
+{name: '間接的な影響'},
+{name: '全般'},
+{name: '一般機械'},
+{name: '予想'},
+{name: '増加する'},
+{name: '想定'},
+{name: '限定'},
+{name: '販価'},
+{name: '出所'},
+{name: '中期予想'},
+{name: '計画'},
+{name: '変わら'},
+{name: '利益の増減'},
+{name: '業績予想を下方修正する'},
+{name: '減少傾向にある'},
+{name: '価格変動の影響'},
+{name: '満た'},
+{name: '軸受'},
+{name: '収益予想'},
+{name: '実勢'},
+{name: '新型'},
+{name: '前期'},
+{name: '中立'},
+{name: '向け'},
+{name: '再評価'},
+{name: '国内需要'},
+{name: '蓋然性'},
+{name: '評価できる'},
+{name: '価格の上昇'},
+{name: '株価キャッシュフロー倍率'},
+{name: '銀行株'},
+{name: '成果'},
+{name: '株価下落'},
+{name: '会社の業績'},
+{name: '前提'},
+{name: '近く'},
+{name: '一時的な要因'},
+{name: '株価の下落'},
+{name: '主因'},
+{name: '三井化学'},
+{name: '業績への影響'},
+{name: '影響は大きい'},
+{name: '価格の低下'},
+{name: '中長期'},
+{name: '開催'},
+{name: '算出'},
+{name: '現在の株価'},
+{name: '上方修正'},
+{name: '程度'},
+{name: '連結営業利益'},
+{name: '引合い'},
+{name: '業績予想を修正する'},
+{name: '業績'},
+{name: '改善する'},
+{name: '経常利益'},
+{name: '決算内容'},
+{name: '基本'},
+{name: '優先順位'},
+{name: '期初'},
+{name: '需要増'},
+{name: '月頃'},
+{name: '評価する'},
+{name: '国内'},
+{name: '期待される'},
+{name: '主要因'},
+{name: '予想売上高'},
+{name: '算出時'},
+{name: '本格的な回復'},
+{name: '推奨'},
+{name: '販売'},
+{name: '好業績'},
+{name: '決算を発表する'},
+{name: '反発'},
+{name: '株価'},
+{name: '減少'},
+{name: '大きな変更'},
+{name: '好意'},
+{name: '末期'},
+{name: '評価'},
+{name: '主な要因'},
+{name: '営業利益'},
+{name: '発表'},
+{name: '目標株価'},
+{name: '前年度'},
+{name: '上期'},
+{name: '待た'},
+{name: '東ソー'},
+{name: '株式市場'},
+{name: '欧米'},
+{name: '業績見通し'},
+{name: '下落'},
+{name: '高い成長'},
+{name: '仮定'},
+{name: '予想通り'},
+{name: '開拓'},
+{name: '昭和電工'},
+{name: '販促費用'},
+{name: '米州'},
+{name: '価格の下落'},
+{name: '説明会'},
+];
+
+      var option = {
+          title: {
+              text: 'Milize.co.jp',
+              bottom: "bottom",
+              left: "center",
+              textStyle: {
+                  color: '#ccc'
+              }
+          },
+          tooltip: {
+              //formatter: '{b}'
+          },
+          toolbox: {
+              show: true,
+              feature: {
+                  restore: {
+                      show: true
+                  },
+                  saveAsImage: {
+                      show: true
+                  }
+              },
+              right: 15
+          },
+          //backgroundColor: '#000000',
+          animationDuration: 1000,
+          animationEasingUpdate: 'quinticInOut',
+          series: [{
+              
+              name: '特徴語関連',
+              edgeSymbol:['circle', 'arrow'],
+              edgeSymbolSize:[4, 6],
+
+
+              type: 'graph',
+              layout: 'force',
+              force: {
+                  initLayout: 'circular',
+                  repulsion: 50,
+                  gravity: 0.1,
+                  edgeLength: 0.01,
+                  layoutAnimation: true,
+              },
+              data: seriesData,
+              links: seriesLinks,
+              categories: seriesCategories,
+              
+              
+              label:
+              {
+                normal:
+                {
+                  show: true,
+                  position: 'top',
+                  formatter: '{b}',
+                  textStyle:
+                  {
+                    fontSize:10
+                  }
+                }
+              },
+              
+              force: 
+              {
+                repulsion: 10
+              },
+              
+              
+              
+              height: 3,
+              lineStyle: {
+                  normal: {
+                      width: 3,
+                      color: {
+                          type: 'linear',
+                          x: 0,
+                          y: 0,
+                          x2: 0,
+                          y2: 1,
+                          colorStops: [{
+                              offset: 0,
+                              color: 'white' // 0% 处的颜色red
+                          }, {
+                              offset: 1,
+                              color: 'red' // 100% 处的颜色blue
+                          }]
+                      },
+                      curveness: 0,
+                      type: "solid"
+                  }
+              }
+          }]
+      };
+
+
+
+       
+      
+      ////////add by jin/////////////////////////////
+      //params use to transfer one node 
+      function proctree(params){
+    	  
+    	  for (var i = seriesData.length - 1; i >= 0; i--) 
+          {
+        	  
+        	  
+              if (seriesData[i].category == params.name) 
+              {
+            	  //alert('a自己是自己的类，说明是根节点')
+            	  //a自己是自己的类，说明是根节点
+                  if (seriesData[i].category != seriesData[i].name) 
+                  { //a排除删除根元素的可能
+                      deletedFlag = true;
+                      for (var ii = seriesData.length - 1; ii >= 0; ii--) 
+                      { //a删除第一级节点的子节点
+                              if (seriesData[ii].category == seriesData[i].name) 
+                              {
+                                  for (var iii = seriesData.length - 1; iii >= 0; iii--) 
+                                  { /*del sub nodes of second cat
+                                	  看来也就支持3级了*/
+                                      if (seriesData[iii].category == seriesData[ii].name)
+                                      {
+                                          globalSeriesData.push(seriesData[iii]);
+                                          //alert('globalSeriesData push :'+String(seriesData[iii]))
+                                          //b删除 category值为 II 类的element,splice(iii,1)
+                                          seriesData.splice(iii, 1);
+                                          
+                                          iii=iii-1;  // A必须对i减去1，否则后面的一个元素会被跳过去
+                                      }
+                                  }
+                                  globalSeriesData.push(seriesData[ii]);
+                                  seriesData.splice(ii, 1);
+                              }
+                      }
+                      globalSeriesData.push(seriesData[i]);
+                      seriesData.splice(i, 1); //c删除该元素的第一级子节点,最多需删除三级
+                  }
+              }
+          }//end of forr
+   	  
+      }//end of function
+      
+      
+      //try one
+      proctree(seriesData[0]);
+      ////////////////////////////
+      
+    
+      myChart.setOption(option);
+
+      
+      
+      
+      
+
+
+
+      //A点击隐藏节点实现,定义数组globalSeriesData用来存储被隐藏的节点的子节点
+      myChart.on('click', function(params) {
+    	  
+    	  
+  
+          if (params.dataType === "node")
+          {
+              var deletedFlag = false; // 标记点击的此节点是否存在子节点,若不存在则说明可能在上次的操作中已经删除,这时就需要尝试把之前删除的节点重新添加进去
+			  //alert('测量Length :'+String(seriesData.length))
+              
+              for (var i = seriesData.length - 1; i >= 0; i--) 
+              {
+            	  
+            	  
+                  if (seriesData[i].category == params.name) 
+                  {
+                	  //alert('a自己是自己的类，说明是根节点')
+                	  //a自己是自己的类，说明是根节点
+                      if (seriesData[i].category != seriesData[i].name) 
+                      { //a排除删除根元素的可能
+                          deletedFlag = true;
+                          for (var ii = seriesData.length - 1; ii >= 0; ii--) 
+	                      { //a删除第一级节点的子节点
+	                              if (seriesData[ii].category == seriesData[i].name) 
+	                              {
+	                                  for (var iii = seriesData.length - 1; iii >= 0; iii--) 
+	                                  { /*del sub nodes of second cat
+	                                	  看来也就支持3级了*/
+	                                      if (seriesData[iii].category == seriesData[ii].name)
+	                                      {
+	                                          globalSeriesData.push(seriesData[iii]);
+	                                          //alert('globalSeriesData push :'+String(seriesData[iii]))
+	                                          //b删除 category值为 II 类的element,splice(iii,1)
+	                                          seriesData.splice(iii, 1);
+	                                          
+	                                          iii=iii-1;  // A必须对i减去1，否则后面的一个元素会被跳过去
+	                                      }
+	                                  }
+	                                  globalSeriesData.push(seriesData[ii]);
+	                                  seriesData.splice(ii, 1);
+	                              }
+                          }
+                          globalSeriesData.push(seriesData[i]);
+                          seriesData.splice(i, 1); //c删除该元素的第一级子节点,最多需删除三级
+                      }
+                  }
+              }
+              
+              //alert('globalSeriesData now :'+String(globalSeriesData))
+               //alert('seriesData now :'+String(seriesData))
+              
+              if (!deletedFlag) 
+              { /*a 这种情况下需要恢复该节点的子节点*/
+            	  //alert('restore enter now.')
+                  var nodeChildren = [];/* 存放本次恢复的数据,然后将它们从globalSeriesData中删除 */
+                  //alert('restoe Length :'+String(globalSeriesData.length))
+                 
+                  for (var n = globalSeriesData.length - 1; n >= 0; n--) 
+                  {
+	                      if (params.name == globalSeriesData[n].category) 
+	                    	  
+	                      {/*a  显示该节点第一级子节点,这些子节点的数据都在 seriesData 和globalseriesData两个间进行流动*/
+	                    	   //alert('restoe name :'+String(params.name))
+	                    	   //alert('global cate name :'+String(globalSeriesData[n].category))
+	                    	   
+	                          seriesData.push(globalSeriesData[n]);
+	                          nodeChildren.push(globalSeriesData[n]);
+	                          for (var nn = globalSeriesData.length - 1; nn >= 0; nn--) 
+	                          {
+	                              if (globalSeriesData[n].name == globalSeriesData[nn].category)//b就是处理第2层节点
+	                              {//a显示该节点第二级子节点*/
+	                                  seriesData.push(globalSeriesData[nn]);
+	                                  nodeChildren.push(globalSeriesData[nn]);
+	                                  for (var nnn = globalSeriesData.length - 1; nnn >= 0; nnn--) 
+	                                  {
+	                                      if (globalSeriesData[nn].name == globalSeriesData[nnn].category) //b处理第三层节点
+	                                      { //b显示该节点第三级子节点
+	                                          seriesData.push(globalSeriesData[nnn]);
+	                                          nodeChildren.push(globalSeriesData[nnn]);
+	                                      }
+	                                  }
+	                              }
+	                          }
+	                          
+
+	                      }
+                   	      //alert('restoe name :'+String(params.name))
+                	      //alert('global cate name :'+String(globalSeriesData[n].category))
+	                      
+                  }
+                  /* b将它们从globalSeriesData中删除 */
+                  if (nodeChildren.length > 0)
+                  {
+                      for (var s = 0; s < nodeChildren.length; s++) 
+                      {
+                          for (var n = globalSeriesData.length - 1; n >= 0; n--)
+                          {
+                              if (nodeChildren[s].name == globalSeriesData[n].name)
+                              {
+                            	  //array.splice(index,howmany,item1,.....,itemX)
+                                  globalSeriesData.splice(n, 1);
+                                  n=n-1;
+                              }
+                          }
+                      }
+                  }
+              }
+
+      
+      
+      
+
+
+              myChart.setOption(option);
+          }
+
+      });
+      
+
+      
+      
+    </script>
+  </body>
+</html>
