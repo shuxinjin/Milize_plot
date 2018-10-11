@@ -1,0 +1,421 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7"></meta>
+    <link rel="stylesheet" href="{%static 'js/bootstrap.min.css'%}">             
+    <link rel="stylesheet" href="{%static 'js/jquery.popuplayer.min.css'%}">
+    <title>ECharts</title>
+    
+  
+    
+    
+</head>
+<body>
+
+<style type="text/css">
+    html, body, #main {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+    #menu{float:left}
+.demo { text-align:center; line-height:200px;}
+
+
+.sub_menue
+{
+display:none;            
+}
+li:hover .sub_menue
+{
+display:block;style="width:40px;height: 20px;           
+}
+</style>
+
+<script type="text/javascript">
+          function onCheck()
+          {
+          
+           if(form1.stockid.value.trim()=="")
+           {
+              alert("Please input a word ");
+              return false;
+           }
+       
+          
+           return true;
+          }
+</script>
+
+
+
+<ul class="menue">
+<li>Menu
+    <ul class="sub_menue">
+    <li><a href="../word">Word Analyzer</a><div></div></li>
+    <li><a href="http://milize.co.jp/milize_hp/">Company</a><div></div></li>
+    <li>
+          <div id="srh" class="form-group"> 
+           <form name="form1"  action="/analysis" method="post" enctype="multipart/form-data">
+              
+            
+              <input type="text" class="form-control" name="stockid" placeholder="Input word" style="width:60px;height: 18px;font-size:14px;" ng-model="stockid"  value="成長"> 
+          
+            <input type="submit" value="Analyze" style="width:40px;height: 23px;font-size:8px;" onclick="return onCheck()"/>
+          </form>
+          </div>  
+    </li>
+    </ul>
+</li>
+
+</ul>  
+
+
+<div id="main">
+    
+
+</div>
+
+
+<script src="{%static 'js/echarts.min.js'%}"></script>
+<script src="{%static 'js/jquery-1.9.0.min.js'%}"></script>
+<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="{%static 'js/jquery.popuplayer.min.js'%}"></script>
+
+<script type="text/javascript">
+var paramname1="";
+var seriesData = [
+ {'name': '発表', 'keywords': '-keywordssss-', 'abstract': '-発表lema?','title': 'title1', 'author': 'TomcatWhiteThis', 'link' : 'abc.pdf','ignore' :0, 'flag' :0},
+ {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+  {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+   {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+    {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+     {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+      {'name': '発表', 'keywords': 220, 'abstract': '発表','title': 1, 'symbol': 'circle', 'draggable' : 'True','ignore' :0, 'flag' :0},
+ ];
+
+     
+    (function ($) {
+        var myChart = echarts.init(document.getElementById('main'));
+         
+        window.onresize = function () {
+
+
+            myChart.resize();
+        };
+
+        myChart.clear();
+        $.getJSON('{%static 'js/j161.json'%}').done(function (data) { 
+        data1=data;//for the floatlayer,
+        //myChart.on("click", clickLayer);
+        myChart.on("dblclick", clickLayer);
+
+
+
+         echarts.util.each(data.children, function (datum, index) {
+                index % 2 === 0 && (datum.collapsed = true);
+            });
+
+            myChart.setOption({
+                 backgroundColor: '#262A35',
+                tooltip: {
+                    trigger: 'item',
+                    triggerOn: 'mousemove'
+                },
+
+                series: [
+                    {
+                        type: 'tree',
+                        id: '5',
+                        data: [data],
+                        left: '7%',
+                        right: '60%',
+                        top: '10%',
+                        bottom: '10%',
+
+                        symbolSize: [80, 14],
+                        symbol: 'rectangle',
+                        initialTreeDepth:5,
+                        label: {
+                               normal: {
+
+                                    color: "#fff",
+                                    position: 'inside',
+                                    verticalAlign: 'middle',
+                                   
+                                    textStyle:{
+                                                 fontSize:12,
+                                                 color:'#666',
+                                    },
+                                    formatter: function(params) {
+                                        if (params.data.selected) {
+                                            let str = 'Current:'
+                                            return `{box|${str}${params.data.name}}`
+                                        } else {
+                                            return `${params.data.name}`
+
+                                        }
+
+                                    },
+                                    rich: {
+                                        box: {
+                                            color: '#3FA7DC',
+                                        }
+                                    }
+                                }
+
+                        },
+                        leaves: {
+                            label: {
+                                position: 'inside',
+                                verticalAlign: 'middle',
+             
+                            }
+
+                        },
+                        expandAndCollapse: true,
+                        animationDuration: 550,
+                        animationDurationUpdate: 750
+                    }
+                ]
+            });
+            setTimeout(function () {
+                var newData = echarts.util.clone(data);
+                newData.children.splice(0, 0);  //newData.children.splice(0, 1)  offical give such code example ,but lack a sub branch
+                myChart.setOption({
+                    series: [{
+                        type: 'tree',
+                        id: '5',
+                        data: [newData]
+                    }]
+                }, false);
+            }, 1000);
+
+        });
+
+
+    }(jQuery));
+
+
+
+//__________________________________
+function getabstract(paramname)
+{
+  if (paramname=="")
+  {
+    return;
+  } 
+  if (paramname==null)
+  {
+    return;
+  } 
+  
+  var floatstr="";
+  var linkstr="";
+  for (var i = seriesData.length - 1; i >= 0; i--) 
+  {
+    
+   
+    linkstr="<br><br>    Article title ：  <a href=\""+seriesData[i].link+"\" target = blank>"+seriesData[i].title+"</a><br>";
+    if (seriesData[i].name == '発表') //correct later,debugging
+    {
+      
+     
+      floatstr=linkstr+seriesData[i].keywords+seriesData[i].abstract;
+
+    }
+  }//end of for
+  //alert(floatstr);
+  return floatstr;
+
+}//end of function
+
+
+//___________________________________
+function innerlayer(param){
+        $("#test2").click();
+
+
+      
+       
+
+  
+    }
+
+//___________________________________
+
+
+//key points
+function clickLayer(param)
+{
+ //if (params.dataType === "node") {
+  
+   //process it as layer on
+    if (typeof param.seriesIndex == 'undefined') {
+        return;
+    }
+    if ( param.name == "") {
+        return;
+    }
+
+    if ( param.name == null) {
+        return;
+    }
+
+    if (param.type == 'dblclick') 
+    {
+        
+     //alert(param.name);
+     paramname1=String(param.name);
+     
+     innerlayer(param);
+     //alert("gongdelin youmeiyouzhi?"+paramname1);
+     
+$('#test2').PopupLayer({ 
+        id:'demo',
+        class:'demo',
+        to: 'left',
+        //blur: true,
+        //content: "<p><br><br><br><h2>eeee"+paramname1+"</h2></p>",
+        content: "<p class='demo'>"+"<h3 align=center>    "+ paramname1 +"</h3><br><br>"+String(getabstract(paramname1))+" </p>",
+        color: "white", 
+        backgroundColor: "#222", 
+        });
+
+
+         setTimeout(function() {
+
+
+
+          //$("popup-layer").remove();
+           //$.remove(".demo");
+         //$("p").remove(".demo");
+          //$(this).remove();
+          //$("#main").popup("destroy");
+         //$('#main').popup('close');
+         //$('#main').closePopupLayer();
+         //$('#main').closePopupLayer('demo');
+         //$('#main').PopupLayer.remove();
+         //$('#main').PopupLayer.removePopup();
+         //$('#main').PopupLayer['demo'].hide();
+         //$('#main').PopupLayer.demo.hide();
+         //$("#demo").hide();
+         //$('#main').popup-layer.hide();
+         //$('#main').removePopup();
+         // $('#main').removePopup();
+         //$("#popup-layer").hide();
+         //$("#popup-layer").remove();
+         //$("#popup-layer-content").hide();
+         //$("#popup-layer-content").remove();
+        // $("#btn-group").hide();
+        //$('#demo').remove();
+        //$("p").remove(".demo");
+        //$('#see').remove();
+        $('div.popup-layer').remove();
+
+        }, 50000);
+
+  
+
+
+
+
+
+    }
+
+    //$('#main').removePopup;
+   
+    //$('#main').closePopupLayer('processing');
+    //$('#main').PopupLayer.remove();
+    // popupClear();
+  //end of type of node}
+}//end of function
+
+//___________________________________
+
+
+function clickFun(param) 
+{
+    if (typeof param.seriesIndex == 'undefined')
+     {
+
+        return;
+    }
+
+ 
+    //process it as search
+    if (param.type == 'dblclick')
+     {
+
+       //retrun server, # 0 construct html page return paras
+
+     
+
+
+  
+       $.ajax({
+                url:'../ajax_dict/',
+                //type:'POST',
+          
+                data:JSON.stringify({'pword':param.name,'rdo':'1'}),
+                
+                //data:{'pword':'jsx','pwd':'123456789'},
+                //data: {jsdata: JSON.stringify({'username': 'js','psw': '132456789'})},
+                //data:{'username':'js','psw':'123456789'},
+                //data:"username=js&psw=123",
+                dataType: 'json',
+                //async:true,
+                success:function(res){
+                    var txt=http_request.responseText;
+                    eval(txt);
+
+                    window.location.href = '../words';
+                    console.log(res);
+
+                    console.log(0);
+
+                },
+                error:function (res) {
+                 
+                    window.location.href = '../words';
+                    console.log(res);
+                    console.log(1);
+                }
+            })
+  
+
+
+
+
+    myChart.setOption(options); 
+
+    }
+}
+
+//_____________________________________
+
+$(function(paramname) {
+
+
+
+ 
+
+    });
+//_________________________________
+
+</script>
+
+   <div id = "see" class="btn-group" role="group" style="display: none;">
+
+        <button id="test2"  type="button"  class="btn btn-warning"></button>
+   
+    </div>
+</body>
+</html>
